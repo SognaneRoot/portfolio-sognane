@@ -279,7 +279,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
               <div className="mt-6 text-sm text-gray-500">
                 <p><strong>Fichier :</strong> {fileName || 'Document'}</p>
                 <p className="mt-2 text-blue-600">
-                  //💡 Le document s'ouvrira dans un nouvel onglet sécurisé sans options de téléchargement.
+                  💡 Le document s'ouvrira dans un nouvel onglet.
                 </p>
               </div>
             </>
