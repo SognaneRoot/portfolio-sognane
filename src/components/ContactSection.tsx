@@ -28,10 +28,10 @@ export default function ContactSection() {
 
     try {
       const { sendEmail } = await import('../utils/emailService');
-      
+
       // Envoi du message via service email
       const result = await sendEmail(formData);
-      
+
       if (result.success) {
         alert(
           `Merci ${formData.name} ! ${result.message}`
@@ -259,11 +259,11 @@ export default function ContactSection() {
                       </a>
                     </p>
                   </div>
-                  
+
                   <div className="p-4 bg-green-50 rounded-lg">
                     <p className="text-sm text-green-700">
                       📧 <strong>Email automatique:</strong> Vos messages sont envoyés directement par email.
-                      Réponse garantie sous 24h !
+                      Réponse garantie sous 48h !
                     </p>
                   </div>
                 </div>

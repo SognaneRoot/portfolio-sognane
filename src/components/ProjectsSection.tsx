@@ -373,7 +373,7 @@ const projectsData: Project[] = [
     year: "2023",
     category: "certification",
     image:
-      "https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZ3xlbnwxfHx8fDE3NTc3NjYxMTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "src\assets\Python2.PNG",
     technologies: ["Python", "Programmation", "Développement"],
     links: {
       certificate: "#",
@@ -382,18 +382,48 @@ const projectsData: Project[] = [
   },
   {
     id: "cert2",
-    title: "CCNA 1 & 2",
+    title: "CCNA 1",
     description:
       "Certification Cisco Netacad en réseaux informatiques et configuration d'équipements.",
     year: "2023-2024",
     category: "certification",
     image:
-      "https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZ3xlbnwxfHx8fDE3NTc3NjYxMTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "src\assets\CCNA-ENSA.PNG",
     technologies: ["Cisco", "Réseaux", "Routing", "Switching"],
     links: {
       certificate: "#",
     },
     featured: true,
+  },
+  {
+  id: "cert7",
+  title: "CCNA  2",
+  description:
+    "Certification Cisco Netacad en réseaux informatiques et configuration d'équipements.",
+  year: "2023-2024",
+  category: "certification",
+  image:
+    "src\assets\CCNA-ENSA.PNG",
+  technologies: ["Cisco", "Réseaux", "Routing", "Switching"],
+  links: {
+    certificate: "#",
+  },
+  featured: true,
+  },
+  {
+  id: "cert8",
+  title: "CCNA 3",
+  description:
+    "Certification Cisco Netacad en réseaux informatiques et configuration d'équipements.",
+  year: "2023-2024",
+  category: "certification",
+  image:
+    "src\assets\CCNA-ENSA.PNG",
+  technologies: ["Cisco", "Réseaux", "Routing", "Switching"],
+  links: {
+    certificate: "#",
+  },
+  featured: true,
   },
   {
     id: "cert3",
@@ -403,7 +433,7 @@ const projectsData: Project[] = [
     year: "2023",
     category: "certification",
     image:
-      "https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZ3xlbnwxfHx8fDE3NTc3NjYxMTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "src\assets\NDG-Linux.PNG",
     technologies: [
       "Linux",
       "Administration Système",
@@ -439,7 +469,7 @@ const projectsData: Project[] = [
     year: "2023",
     category: "certification",
     image:
-      "https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZ3xlbnwxfHx8fDE3NTc3NjYxMTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "src\assets\NDG-Linux.PNG",
     technologies: [
       "Linux Server",
       "Administration",
@@ -457,8 +487,22 @@ const projectsData: Project[] = [
     year: "2023",
     category: "certification",
     image:
-      "https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZ3xlbnwxfHx8fDE3NTc3NjYxMTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "src\assets\ITE.PNG",
     technologies: ["Hardware", "Software", "Troubleshooting"],
+    links: {
+      certificate: "#",
+    },
+  },
+  {
+    id: "cert9",
+    title: "Operating System Basics",
+    description:
+      "Certification Cisco Netacad sur les bases des systèmes d'exploitations",
+    year: "2024",
+    category: "certification",
+    image:
+      "src\assets\Operating_Systems_Basics_certificate_sognanendiaga0-gmail-com_73b9fef2-7498-4d2c-9454-dc6b6e33085b-1.jpg",
+    technologies: ["Hardware", "Software", "Administration", "Windows", "Linux"],
     links: {
       certificate: "#",
     },
@@ -474,7 +518,7 @@ const toolsData: Tool[] = [
     category: "Systèmes d'exploitation",
     icon: Code,
     description:
-      "Administration complète Windows Server 2012/2016/2019/2022",
+      "Administration complète Windows Server 2012/2016/2019/2022/2025",
     proficiency: "Avancé",
     color: "blue",
   },
@@ -484,7 +528,7 @@ const toolsData: Tool[] = [
     category: "Systèmes d'exploitation",
     icon: Code,
     description:
-      "Administration système Linux, scripts Bash, service, Pentesting",
+      "Administration système Linux, scripts Bash, service, gestion utilisateur",
     proficiency: "Avancé",
     color: "green",
   },
@@ -536,7 +580,7 @@ const toolsData: Tool[] = [
     category: "Réseaux",
     icon: Wrench,
     description:
-      "Configuration routeurs/switchs, VLAN, OSPF, ACL",
+      "Configuration routeurs/switchs, VLAN, OSPF, ACL, STP",
     proficiency: "Avancé",
     color: "blue",
   },
@@ -573,7 +617,7 @@ const toolsData: Tool[] = [
   // Sécurité
   {
     id: "tool11",
-    name: "Nmap/Nessus",
+    name: "Nmap",
     category: "Sécurité",
     icon: Shield,
     description: "Audit sécurité, tests de pénétration",
@@ -602,7 +646,7 @@ const toolsData: Tool[] = [
   // Monitoring
   {
     id: "tool14",
-    name: "Ntopng/Cacti",
+    name: "Ntopng",
     category: "Monitoring",
     icon: Wrench,
     description: "Supervision réseau, analyse trafic",
@@ -715,7 +759,7 @@ export default function ProjectsSection({
     } else {
       // Pour les projets, vérifier si un rapport PDF est disponible
       const hasReport = await SimpleFileService.hasReportForProject(project.id);
-      
+
       if (hasReport) {
         console.log('📄 Rapport trouvé pour le projet, ouverture directe...');
         SimpleFileService.openProjectReport(project.id);
