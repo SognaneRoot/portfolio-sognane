@@ -107,7 +107,7 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
       if (formspreeResponse.ok) {
         return {
           success: true,
-          message: 'Email envoyé avec succès via Formspree!'
+          message: 'Email envoyé avec succès'
         };
       }
     } catch (formspreeError) {
