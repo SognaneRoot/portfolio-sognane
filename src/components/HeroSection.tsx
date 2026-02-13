@@ -37,7 +37,7 @@ export default function HeroSection() {
 
           <div className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto min-h-[2.5rem] flex items-center justify-center">
             <TypewriterText
-              baseText="Administrateur"
+              baseText="Administrateur  "
               words={[
                 "Système",
                 "Réseau",
