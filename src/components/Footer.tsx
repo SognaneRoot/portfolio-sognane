@@ -46,7 +46,7 @@ export default function Footer() {
       default:
         sectionId = item.toLowerCase();
     }
-    
+
     const element = document.querySelector(`#${sectionId}`);
     if (element) {
       element.scrollIntoView({
@@ -66,8 +66,8 @@ export default function Footer() {
               Ndiaga Sognane
             </h3>
             <p className="text-gray-400 max-w-sm">
-              Technicien en Administration Système, Sécurité et
-              Cloud passionné par l'innovation et la résolution
+              Administrateur Système, Sécurité et Cloud
+              passionné par l'innovation et la résolution
               de problèmes techniques.
             </p>
           </div>

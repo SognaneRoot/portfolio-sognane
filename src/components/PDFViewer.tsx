@@ -16,7 +16,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
 
   useEffect(() => {
     console.log('📄 Initialisation PDFViewer avec URL:', url);
-    
+
     // Désactiver le scroll du body
     document.body.style.overflow = 'hidden';
 
@@ -28,7 +28,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
 
   const handleOpenInNewTab = async () => {
     console.log('🔗 Ouverture dans un nouvel onglet sécurisé...');
-    
+
     // Pour les URLs blob, elles ne fonctionnent pas hors contexte dans un nouvel onglet
     if (url.startsWith('blob:')) {
       console.warn('⚠️ URL blob détectée - ancien format de fichier');
@@ -146,7 +146,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
             </h1>
             <div class="protection-msg">
               <span style="font-size: 14px">🔒</span>
-              <span>CONSULTATION SÉCURISÉE</span>
+          //  <span>CONSULTATION SÉCURISÉE</span>
             </div>
           </div>
           <div class="pdf-container" id="container">
@@ -157,20 +157,20 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
           </div>
           <script>
             const pdfUrl = ${JSON.stringify(pdfUrl)};
-            
+
             const container = document.getElementById('container');
             const loading = document.getElementById('loading');
-            
+
             setTimeout(() => {
               try {
                 // Ajouter des paramètres pour masquer les barres d'outils natives
                 const finalUrl = pdfUrl + (pdfUrl.includes('#') ? '' : '#toolbar=0&navpanes=0&scrollbar=1&statusbar=0&messages=0&view=FitH');
-                
+
                 // Utiliser iframe pour une meilleure compatibilité cross-origin
                 const frame = document.createElement('iframe');
                 frame.src = finalUrl;
                 frame.title = "Visualiseur PDF Sécurisé";
-                
+
                 loading.style.display = 'none';
                 container.appendChild(frame);
               } catch (error) {
@@ -213,7 +213,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
             📄 {fileName || 'Document'}
           </h2>
         </div>
-        
+
         <div className="flex items-center gap-2">
           {!url.startsWith('blob:') && (
             <Button
@@ -241,7 +241,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
         <div className="max-w-md text-center bg-white p-8 rounded-lg shadow-lg">
           <div className="text-6xl mb-4">📄</div>
           <h3 className="text-xl font-medium mb-4">Document sécurisé</h3>
-          
+
           {url.startsWith('blob:') ? (
             <>
               <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
@@ -251,7 +251,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
                   Veuillez le re-uploader via l'admin pour activer la consultation sécurisée.
                 </p>
               </div>
-              
+
               <div className="mt-6 text-sm text-gray-500">
                 <p><strong>Fichier :</strong> {fileName || 'Document'}</p>
                 <p className="mt-2 text-orange-600">
@@ -262,12 +262,12 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
           ) : (
             <>
               <p className="text-gray-600 mb-6">
-                Ce document est mis à disposition pour consultation uniquement. 
-                Le téléchargement et la copie ne sont pas autorisés par l'auteur.
+                Ce document est mis à disposition pour consultation uniquement.
+
               </p>
-              
+
               <div className="space-y-3">
-                <Button 
+                <Button
                   onClick={handleOpenInNewTab}
                   className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 >
@@ -275,11 +275,11 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
                   Consulter le document
                 </Button>
               </div>
-              
+
               <div className="mt-6 text-sm text-gray-500">
                 <p><strong>Fichier :</strong> {fileName || 'Document'}</p>
                 <p className="mt-2 text-blue-600">
-                  💡 Le document s'ouvrira dans un nouvel onglet sécurisé sans options de téléchargement.
+                  //💡 Le document s'ouvrira dans un nouvel onglet sécurisé sans options de téléchargement.
                 </p>
               </div>
             </>
@@ -289,18 +289,18 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
 
       {/* Message de protection */}
       <div className={`border-t px-4 py-2 ${
-        url.startsWith('blob:') 
-          ? 'bg-orange-50 border-orange-200' 
+        url.startsWith('blob:')
+          ? 'bg-orange-50 border-orange-200'
           : 'bg-blue-50 border-blue-200'
       }`}>
         <p className={`text-sm text-center font-medium ${
-          url.startsWith('blob:') 
-            ? 'text-orange-800' 
+          url.startsWith('blob:')
+            ? 'text-orange-800'
             : 'text-blue-800'
         }`}>
-          {url.startsWith('blob:') 
+          {url.startsWith('blob:')
             ? '⚠️ Format incompatible avec la protection - Re-uploadez via l\'admin'
-            : '🔒 Ce document est protégé contre le téléchargement et la copie'}
+            : /*'🔒 Ce document est protégé contre le téléchargement et la copie'*/}
         </p>
       </div>
     </div>

@@ -339,7 +339,7 @@ export default function CVSection() {
     try {
       console.log('📄 handleDownloadCV: Tentative d\'accès au CV...');
       const mainCV = await CVService.getMainCV();
-      
+
       if (mainCV) {
         console.log('✅ CV identifié:', mainCV.name, 'URL:', mainCV.url);
         const { SimpleFileService } = await import('../utils/simpleFileService');
@@ -485,7 +485,7 @@ export default function CVSection() {
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium"
           >
             <ExternalLink className="mr-2 h-4 w-4" />
-            Consulter mon CV (Sécurisé)
+            Consulter mon CV 
           </Button>
         </div>
 

@@ -17,12 +17,12 @@ interface EmailServiceResponse {
 // 4. Remplacer les IDs ci-dessous par vos vrais IDs
 const EMAILJS_CONFIG = {
   serviceId: 'service_pcxpsjn', // Remplacer par votre Service ID
-  templateId: 'template_zenli2e', // Remplacer par votre Template ID  
+  templateId: 'template_zenli2e', // Remplacer par votre Template ID
   publicKey: 'eduWk3H7qIiot8TVr'    // Remplacer par votre Public Key
 };
 
 // Alternative Web3Forms (gratuit, sans inscription)
-const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY'; // Obtenir sur https://web3forms.com
+const WEB3FORMS_KEY = 'fb5b69ee-1c64-46c0-bfdc-f117a608eb73'; // Obtenir sur https://web3forms.com
 
 export const sendEmail = async (formData: EmailData): Promise<EmailServiceResponse> => {
   try {
@@ -30,7 +30,7 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
     if (EMAILJS_CONFIG.publicKey !== 'eduWk3H7qIiot8TVr') {
       try {
         const emailjs = await import('@emailjs/browser');
-        
+
         const templateParams = {
           from_name: formData.name,
           from_email: formData.email,
@@ -76,7 +76,7 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
         });
 
         const result = await response.json();
-        
+
         if (result.success) {
           return {
             success: true,
@@ -90,7 +90,7 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
 
     // Méthode 3: Formspree (alternative populaire)
     try {
-      const formspreeResponse = await fetch('https://formspree.io/f/xwpkvgok', {
+      const formspreeResponse = await fetch('https://formspree.io/f/mnjbpwwg', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
           _subject: `Contact depuis le portfolio - ${formData.name}`
         }),
       });
-      
+
       if (formspreeResponse.ok) {
         return {
           success: true,
@@ -115,10 +115,10 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
     }
 
     throw new Error('Tous les services d\'email ont échoué');
-    
+
   } catch (error) {
     console.error('Erreur lors de l\'envoi de l\'email:', error);
-    
+
     // Fallback: Mailto comme dernière option
     const subject = encodeURIComponent(`Contact depuis le portfolio - ${formData.name}`);
     const body = encodeURIComponent(
@@ -130,10 +130,10 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
       `---\n` +
       `Message envoyé depuis monportfolio.ct.ws le ${new Date().toLocaleDateString('fr-FR')}`
     );
-    
+
     const mailtoLink = `mailto:sognanendiaga221@gmail.com?subject=${subject}&body=${body}`;
     window.open(mailtoLink, '_blank');
-    
+
     return {
       success: true,
       message: 'Votre client email va s\'ouvrir pour envoyer le message.'
@@ -152,7 +152,7 @@ export const sendWhatsAppNotification = (formData: EmailData) => {
     `---\n` +
     `Notification depuis monportfolio.ct.ws`
   );
-  
+
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
   window.open(whatsappUrl, '_blank');
   return true;
@@ -172,7 +172,7 @@ Pour activer l'envoi d'emails automatique, configurez l'un de ces services :
 2. Ajouter un service email (Gmail, Outlook, etc.)
 3. Créer un template avec ces variables :
    - {{from_name}} : Nom de l'expéditeur
-   - {{from_email}} : Email de l'expéditeur  
+   - {{from_email}} : Email de l'expéditeur
    - {{message}} : Message
    - {{to_name}} : Votre nom
 4. Remplacer les IDs dans emailService.ts
