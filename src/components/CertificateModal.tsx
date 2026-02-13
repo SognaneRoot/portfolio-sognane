@@ -54,21 +54,21 @@ export default function CertificateModal({
       cert2:
         "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80", // Cisco CCNA 2
       cert2b:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80", // Cisco CCNA 3
+        "src\assets\CCNA-ENSA.PNG", // Cisco CCNA 3
       cert3:
-        "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&q=80", // Python 1
+        "src\assets\Python2.PNG", // Python 1
       cert4:
-        "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&q=80", // Python 2
+        "src\assets\Python2.PNG", // Python 2
       cert5:
         "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600&q=80", // AWS Cloud
       cert6:
-        "https://images.unsplash.com/photo-1518373714866-3f1478910cc0?w=600&q=80", // Linux
+        "src\assets\NDG-Linux.PNG", // Linux
       cert7:
         "https://images.unsplash.com/photo-1518373714866-3f1478910cc0?w=600&q=80", // Linux Server
       cert8:
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80", // CyberOps
       cert9:
-        "https://images.unsplash.com/photo-1518373714866-3f1478910cc0?w=600&q=80", // IT Essentials
+        "src\assets\ITE.PNG", // IT Essentials
       cert10:
         "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", // IoT
       cert11:
@@ -76,13 +76,13 @@ export default function CertificateModal({
       cert12:
         "src\assets\FSMO.jpg", // Microsoft FSMO
       cert13:
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80", // Intro Cybersécurité
+        "src\assets\Cybersec.PNG", // Intro Cybersécurité
       cert14:
         "src\assets\GPO.jpg", // Microsoft GPO
       cert15:
         "src\assets\DNS.jpg", // Microsoft DNS
       cert16:
-        "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&q=80", // Windows OS Cisco
+        "src\assets\Operating_Systems_Basics_certificate_sognanendiaga0-gmail-com_73b9fef2-7498-4d2c-9454-dc6b6e33085b-1.jpg", // Windows OS Cisco
     };
     return (
       defaultImages[certId] ||
