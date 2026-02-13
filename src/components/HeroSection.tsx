@@ -37,10 +37,10 @@ export default function HeroSection() {
 
           <div className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto min-h-[2.5rem] flex items-center justify-center">
             <TypewriterText
-              baseText="Technicien en "
+              baseText="Administrateur"
               words={[
-                "Administration Système",
-                "Sécurité",
+                "Système",
+                "Réseau",
                 "Cloud",
               ]}
               typingSpeed={80}
@@ -51,7 +51,7 @@ export default function HeroSection() {
           </div>
 
           <p className="text-lg text-gray-700 mb-8 max-w-3xl mx-auto italic">
-            "Passionné par l'innovation et la résolution de problèmes techniques."
+            "Conception et déploiement d’architectures IT sécurisées combinant environnements On-premise et Cloud."
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -79,7 +79,7 @@ export default function HeroSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           <div className="p-6 bg-white/60 backdrop-blur-sm rounded-xl shadow-lg">
-            <h3 className="text-2xl mb-2 text-blue-600">2+</h3>
+            <h3 className="text-2xl mb-2 text-blue-600">3+</h3>
             <p className="text-gray-600">Années de formation</p>
           </div>
 
@@ -92,7 +92,7 @@ export default function HeroSection() {
 
           <div className="p-6 bg-white/60 backdrop-blur-sm rounded-xl shadow-lg">
             <h3 className="text-2xl mb-2 text-blue-600">10+</h3>
-            <p className="text-gray-600">Certifications</p>
+            <p className="text-gray-600">Attestations</p>
           </div>
         </div>
       </div>
