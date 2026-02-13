@@ -300,7 +300,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
         }`}>
           {url.startsWith('blob:')
             ? '⚠️ Format incompatible avec la protection - Re-uploadez via l\'admin'
-            : /*'🔒 Ce document est protégé contre le téléchargement et la copie'*/}
+            : }
         </p>
       </div>
     </div>
