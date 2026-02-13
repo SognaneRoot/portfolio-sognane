@@ -34,6 +34,14 @@ export default function App() {
   const [pdfViewerData, setPdfViewerData] = useState<{url: string, fileName: string} | null>(null);
 
   useEffect(() => {
+    // Bloquer le clic droit sur tout le site
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    window.addEventListener('contextmenu', handleContextMenu);
+
     // Écouter les événements pour ouvrir le viewer PDF
     const handleOpenPDFViewer = (event: CustomEvent) => {
       console.log('📡 Événement openPDFViewer reçu:', event.detail);
@@ -54,6 +62,7 @@ export default function App() {
     });
 
     return () => {
+      window.removeEventListener('contextmenu', handleContextMenu);
       window.removeEventListener('openPDFViewer', handleOpenPDFViewer as EventListener);
     };
   }, []);

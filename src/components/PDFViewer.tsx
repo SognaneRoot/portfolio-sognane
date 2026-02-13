@@ -27,38 +27,29 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
   }, [url]);
 
   const handleOpenInNewTab = async () => {
-    console.log('🔗 Ouverture dans un nouvel onglet...');
+    console.log('🔗 Ouverture dans un nouvel onglet sécurisé...');
     
-    // Pour les URLs normales (Supabase, HTTP), ouvrir directement
-    if (!url.startsWith('blob:') && !url.startsWith('data:')) {
-      console.log('✅ Ouverture URL normale:', url);
-      window.open(url, '_blank');
-      return;
-    }
-
-    // Pour les URLs blob, elles ne fonctionnent pas hors contexte
+    // Pour les URLs blob, elles ne fonctionnent pas hors contexte dans un nouvel onglet
     if (url.startsWith('blob:')) {
       console.warn('⚠️ URL blob détectée - ancien format de fichier');
       alert('⚠️ Ce fichier utilise un ancien format.\n\n' +
-            'Pour l\'ouvrir dans un nouvel onglet :\n' +
-            '1. Téléchargez-le avec le bouton "Télécharger"\n' +
-            '2. Ou re-uploadez-le via l\'interface admin (⚙️)\n\n' +
-            'Le fichier sera alors converti au nouveau format compatible.');
+            'Veuillez le re-uploader via l\'interface admin (⚙️) pour activer la consultation sécurisée.');
       return;
     }
 
-    // Pour les URLs data, on peut les utiliser directement
-    let dataUrl = url;
+    // Préparer l'URL pour l'intégration
+    let pdfUrl = url;
 
-    // Créer une page HTML avec le PDF intégré
+    // Créer une page HTML avec le PDF intégré - Version sécurisée sans bouton téléchargement
+    // Cette méthode fonctionne pour les URLs data: et les URLs distantes (Supabase)
     const newWindow = window.open('', '_blank');
     if (!newWindow) {
       console.log('❌ Popup bloquée');
-      alert('⚠️ Les popups sont bloquées.\nVeuillez autoriser les popups pour ce site ou utiliser le bouton "Télécharger".');
+      alert('⚠️ Les popups sont bloquées.\nVeuillez autoriser les popups pour consulter le document.');
       return;
     }
 
-    // Écrire la page HTML
+    // Écrire la page HTML sans options de téléchargement ou d'impression
     newWindow.document.write(`
       <!DOCTYPE html>
       <html lang="fr">
@@ -71,62 +62,56 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
               margin: 0;
               padding: 0;
               box-sizing: border-box;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
             }
             body {
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-              background: #2d3748;
+              background: #0f172a;
               overflow: hidden;
             }
             .header {
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              background: #1e293b;
               color: white;
-              padding: 12px 20px;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+              padding: 12px 24px;
+              box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
               display: flex;
               justify-content: space-between;
               align-items: center;
-              z-index: 10;
+              z-index: 50;
               position: relative;
+              border-bottom: 1px solid #334155;
             }
             .header h1 {
-              font-size: 18px;
+              font-size: 15px;
               font-weight: 500;
               display: flex;
               align-items: center;
-              gap: 8px;
+              gap: 10px;
+              letter-spacing: 0.025em;
             }
-            .controls {
-              display: flex;
-              gap: 8px;
-            }
-            .btn {
-              background: rgba(255,255,255,0.2);
-              border: 1px solid rgba(255,255,255,0.3);
-              color: white;
-              padding: 8px 16px;
-              border-radius: 6px;
-              cursor: pointer;
-              font-size: 14px;
-              transition: all 0.2s;
+            .protection-msg {
+              font-size: 11px;
+              color: #94a3b8;
+              background: #334155;
+              padding: 4px 12px;
+              border-radius: 9999px;
+              font-weight: 500;
               display: flex;
               align-items: center;
               gap: 6px;
-              font-weight: 500;
-            }
-            .btn:hover {
-              background: rgba(255,255,255,0.3);
-              transform: translateY(-1px);
-              box-shadow: 0 4px 6px rgba(0,0,0,0.2);
             }
             .pdf-container {
               width: 100%;
               height: calc(100vh - 48px);
-              background: #2d3748;
+              background: #0f172a;
               display: flex;
               align-items: center;
               justify-content: center;
             }
-            object, embed {
+            object, embed, iframe {
               width: 100%;
               height: 100%;
               border: none;
@@ -136,143 +121,77 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
               flex-direction: column;
               align-items: center;
               justify-content: center;
-              gap: 16px;
-              color: white;
+              gap: 20px;
+              color: #94a3b8;
             }
             .spinner {
-              width: 48px;
-              height: 48px;
-              border: 4px solid rgba(255,255,255,0.2);
-              border-top: 4px solid #667eea;
+              width: 40px;
+              height: 40px;
+              border: 3px solid #1e293b;
+              border-top: 3px solid #3b82f6;
               border-radius: 50%;
-              animation: spin 1s linear infinite;
+              animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             }
             @keyframes spin {
               0% { transform: rotate(0deg); }
               100% { transform: rotate(360deg); }
             }
-            .error-msg {
-              text-align: center;
-              color: white;
-              padding: 40px;
-            }
-            .error-msg h2 {
-              font-size: 24px;
-              margin-bottom: 16px;
-            }
-            .error-msg p {
-              font-size: 16px;
-              margin-bottom: 24px;
-              opacity: 0.8;
-            }
           </style>
         </head>
-        <body>
+        <body oncontextmenu="return false;" onkeydown="return (event.keyCode != 80 && event.keyCode != 83 && !event.ctrlKey)">
           <div class="header">
             <h1>
-              <span>📄</span>
-              <span>${(fileName || 'Document PDF').replace(/'/g, "\\'")} </span>
+              <span style="font-size: 18px">📄</span>
+              <span>${(fileName || 'Projet Technique').replace(/'/g, "\\'")}</span>
             </h1>
-            <div class="controls">
-              <button class="btn" onclick="window.print()" title="Imprimer le document">
-                <span>🖨️</span>
-                <span>Imprimer</span>
-              </button>
-              <button class="btn" onclick="downloadPDF()" title="Télécharger le document">
-                <span>💾</span>
-                <span>Télécharger</span>
-              </button>
+            <div class="protection-msg">
+              <span style="font-size: 14px">🔒</span>
+              <span>CONSULTATION SÉCURISÉE</span>
             </div>
           </div>
           <div class="pdf-container" id="container">
             <div class="loading" id="loading">
               <div class="spinner"></div>
-              <p>Chargement du document PDF...</p>
+              <p>Chargement sécurisé du document...</p>
             </div>
           </div>
           <script>
-            const pdfData = ${JSON.stringify(dataUrl)};
-            const fileName = ${JSON.stringify(fileName || 'document.pdf')};
+            const pdfUrl = ${JSON.stringify(pdfUrl)};
             
-            function downloadPDF() {
-              console.log('📥 Téléchargement du PDF...');
-              const link = document.createElement('a');
-              link.href = pdfData;
-              link.download = fileName;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              console.log('✅ Téléchargement lancé');
-            }
-            
-            // Afficher le PDF
             const container = document.getElementById('container');
             const loading = document.getElementById('loading');
             
             setTimeout(() => {
               try {
-                // Créer un object tag pour afficher le PDF
-                const obj = document.createElement('object');
-                obj.data = pdfData;
-                obj.type = 'application/pdf';
-                obj.style.width = '100%';
-                obj.style.height = '100%';
+                // Ajouter des paramètres pour masquer les barres d'outils natives
+                const finalUrl = pdfUrl + (pdfUrl.includes('#') ? '' : '#toolbar=0&navpanes=0&scrollbar=1&statusbar=0&messages=0&view=FitH');
                 
-                // Fallback si object ne fonctionne pas
-                const fallbackDiv = document.createElement('div');
-                fallbackDiv.className = 'error-msg';
-                fallbackDiv.innerHTML = \`
-                  <h2>📄 Document PDF prêt</h2>
-                  <p>Votre navigateur ne peut pas afficher ce PDF directement.</p>
-                  <button class="btn" onclick="downloadPDF()" style="margin: 0 auto;">
-                    <span>💾</span>
-                    <span>Télécharger le document</span>
-                  </button>
-                \`;
-                obj.appendChild(fallbackDiv);
+                // Utiliser iframe pour une meilleure compatibilité cross-origin
+                const frame = document.createElement('iframe');
+                frame.src = finalUrl;
+                frame.title = "Visualiseur PDF Sécurisé";
                 
                 loading.style.display = 'none';
-                container.appendChild(obj);
-                
-                console.log('✅ PDF affiché');
+                container.appendChild(frame);
               } catch (error) {
-                console.error('❌ Erreur affichage PDF:', error);
-                loading.innerHTML = \`
-                  <div class="error-msg">
-                    <h2>⚠️ Erreur d'affichage</h2>
-                    <p>Impossible d'afficher le PDF dans le navigateur.</p>
-                    <button class="btn" onclick="downloadPDF()">
-                      <span>💾</span>
-                      <span>Télécharger le document</span>
-                    </button>
-                  </div>
-                \`;
+                console.error('Erreur affichage PDF:', error);
+                loading.innerHTML = '<p style="color: #ef4444">Erreur lors du chargement du document.</p>';
               }
             }, 100);
+
+            // Bloquer le raccourci Ctrl+P et Ctrl+S
+            window.addEventListener('keydown', function(e) {
+              if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+              }
+            });
           </script>
         </body>
       </html>
     `);
     newWindow.document.close();
-    console.log('✅ Nouvel onglet créé');
-  };
-
-  const handleDownload = () => {
-    console.log('💾 Téléchargement du fichier:', fileName);
-    console.log('🔗 Type d\'URL:', url.substring(0, 10) + '...');
-    
-    try {
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName || 'document.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      console.log('✅ Téléchargement lancé');
-    } catch (error) {
-      console.error('❌ Erreur téléchargement:', error);
-      alert('⚠️ Erreur lors du téléchargement.\nVeuillez réessayer ou contacter le support.');
-    }
+    console.log('✅ Nouvel onglet sécurisé créé');
   };
 
   return (
@@ -298,24 +217,14 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
         <div className="flex items-center gap-2">
           {!url.startsWith('blob:') && (
             <Button
-              variant="outline"
+              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               size="sm"
               onClick={handleOpenInNewTab}
-              className="flex items-center gap-2"
             >
               <ExternalLink className="h-4 w-4" />
               Ouvrir dans un nouvel onglet
             </Button>
           )}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleDownload}
-            className="flex items-center gap-2"
-          >
-            <Download className="h-4 w-4" />
-            Télécharger
-          </Button>
           <Button
             variant="ghost"
             size="sm"
@@ -331,7 +240,7 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
       <div className="flex-1 bg-gray-100 flex items-center justify-center">
         <div className="max-w-md text-center bg-white p-8 rounded-lg shadow-lg">
           <div className="text-6xl mb-4">📄</div>
-          <h3 className="text-xl font-medium mb-4">Document PDF disponible</h3>
+          <h3 className="text-xl font-medium mb-4">Document sécurisé</h3>
           
           {url.startsWith('blob:') ? (
             <>
@@ -339,56 +248,38 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
                 <p className="text-orange-800 text-sm">
                   ⚠️ <strong>Ancien format de fichier</strong><br/>
                   Ce fichier ne peut pas s'ouvrir dans un nouvel onglet.<br/>
-                  Veuillez le télécharger ou le re-uploader via l'admin.
+                  Veuillez le re-uploader via l'admin pour activer la consultation sécurisée.
                 </p>
-              </div>
-              
-              <div className="space-y-3">
-                <Button 
-                  onClick={handleDownload}
-                  className="w-full flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                >
-                  <Download className="h-4 w-4" />
-                  Télécharger le document
-                </Button>
               </div>
               
               <div className="mt-6 text-sm text-gray-500">
                 <p><strong>Fichier :</strong> {fileName || 'Document'}</p>
                 <p className="mt-2 text-orange-600">
-                  💡 Pour activer l'ouverture dans un nouvel onglet, re-uploadez ce fichier via l'interface admin (⚙️)
+                  💡 Re-uploadez ce fichier via l'interface admin (⚙️)
                 </p>
               </div>
             </>
           ) : (
             <>
               <p className="text-gray-600 mb-6">
-                Choisissez comment consulter le document :
+                Ce document est mis à disposition pour consultation uniquement. 
+                Le téléchargement et la copie ne sont pas autorisés par l'auteur.
               </p>
               
               <div className="space-y-3">
                 <Button 
                   onClick={handleOpenInNewTab}
-                  className="w-full flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  Ouvrir dans un nouvel onglet
-                </Button>
-                
-                <Button 
-                  variant="outline"
-                  onClick={handleDownload}
-                  className="w-full flex items-center gap-2"
-                >
-                  <Download className="h-4 w-4" />
-                  Télécharger le document
+                  Consulter le document
                 </Button>
               </div>
               
               <div className="mt-6 text-sm text-gray-500">
                 <p><strong>Fichier :</strong> {fileName || 'Document'}</p>
                 <p className="mt-2 text-blue-600">
-                  💡 Le document s'ouvrira dans un nouvel onglet avec contrôles d'impression et téléchargement
+                  💡 Le document s'ouvrira dans un nouvel onglet sécurisé sans options de téléchargement.
                 </p>
               </div>
             </>
@@ -402,14 +293,14 @@ export default function PDFViewer({ url, fileName, onClose }: PDFViewerProps) {
           ? 'bg-orange-50 border-orange-200' 
           : 'bg-blue-50 border-blue-200'
       }`}>
-        <p className={`text-sm text-center ${
+        <p className={`text-sm text-center font-medium ${
           url.startsWith('blob:') 
             ? 'text-orange-800' 
             : 'text-blue-800'
         }`}>
           {url.startsWith('blob:') 
-            ? '⚠️ Fichier ancien format - Téléchargez ou re-uploadez via l\'admin pour améliorer la compatibilité'
-            : '💡 Le document s\'ouvrira dans un nouvel onglet avec tous les contrôles nécessaires'}
+            ? '⚠️ Format incompatible avec la protection - Re-uploadez via l\'admin'
+            : '🔒 Ce document est protégé contre le téléchargement et la copie'}
         </p>
       </div>
     </div>

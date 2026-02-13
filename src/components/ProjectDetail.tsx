@@ -218,10 +218,10 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
               <Button 
                 variant="outline" 
                 onClick={handleViewDemo}
-                className={reportAvailable ? 'border-green-500 text-green-700' : ''}
+                className={reportAvailable ? 'border-blue-500 text-blue-700 hover:bg-blue-50' : ''}
               >
                 <ExternalLink className="mr-2 h-4 w-4" />
-                {reportAvailable ? 'Voir le rapport' : 'Voir la démo'}
+                {reportAvailable ? 'Consulter le rapport (Sécurisé)' : 'Voir la démo'}
               </Button>
               
               {project.links?.github && (
@@ -229,14 +229,6 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                   <a href={project.links.github} target="_blank" rel="noopener noreferrer">
                     <Github className="mr-2 h-4 w-4" />
                     Code source
-                  </a>
-                </Button>
-              )}
-              {project.links?.certificate && (
-                <Button variant="outline" asChild>
-                  <a href={project.links.certificate} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-4 w-4" />
-                    Voir le certificat
                   </a>
                 </Button>
               )}

@@ -337,24 +337,25 @@ export default function CVSection() {
 
   const handleDownloadCV = async () => {
     try {
-      // Essayer d'abord le CV importé
-      const success = await CVService.downloadMainCV();
-      if (!success) {
-        // Fallback vers la génération automatique si pas de CV importé
-        try {
-          console.log('Aucun CV importé trouvé, génération automatique...');
-          const { generatePDFCV } = await import('../utils/pdfGenerator');
-          await generatePDFCV();
-        } catch (pdfError) {
-          console.error('Erreur génération PDF, fallback vers HTML:', pdfError);
-          // Dernier fallback vers la version HTML
-          const { generateAndDownloadCV } = await import('../utils/cvGenerator');
-          generateAndDownloadCV();
-        }
+      console.log('📄 handleDownloadCV: Tentative d\'accès au CV...');
+      const mainCV = await CVService.getMainCV();
+      
+      if (mainCV) {
+        console.log('✅ CV identifié:', mainCV.name, 'URL:', mainCV.url);
+        const { SimpleFileService } = await import('../utils/simpleFileService');
+        const event = new CustomEvent('openPDFViewer', {
+          detail: { url: mainCV.url, fileName: mainCV.name }
+        });
+        window.dispatchEvent(event);
+      } else {
+        console.warn('⚠️ Aucun CV trouvé avec les critères requis ("cv" dans le nom)');
+        alert('📄 Aucun CV personnalisé n\'a été trouvé dans vos documents.\n\n' +
+              '💡 Note : Le système recherche un fichier PDF dont le nom contient "CV" (ex: "CV_Ndiaga.pdf").\n\n' +
+              'Veuillez vérifier vos fichiers dans le panneau admin.');
       }
     } catch (error) {
-      console.error('Erreur lors du téléchargement du CV:', error);
-      alert('Erreur lors du téléchargement du CV. Veuillez réessayer.');
+      console.error('Erreur lors de l\'accès au CV:', error);
+      alert('Erreur lors de l\'accès au CV. Veuillez réessayer.');
     }
   };
 
@@ -481,10 +482,10 @@ export default function CVSection() {
           </p>
           <Button
             onClick={handleDownloadCV}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium"
           >
-            <Download className="mr-2 h-4 w-4" />
-            Télécharger CV PDF
+            <ExternalLink className="mr-2 h-4 w-4" />
+            Consulter mon CV (Sécurisé)
           </Button>
         </div>
 

@@ -19,10 +19,8 @@ class LocalStorageService implements StorageInterface {
       const files = JSON.parse(localStorage.getItem('admin_files') || '[]');
       return files
         .filter((file: any) => 
-          file.type === 'document' && 
-          (file.name.toLowerCase().includes('cv') || 
-           file.name.toLowerCase().includes('resume') ||
-           file.name.toLowerCase().endsWith('.pdf'))
+          file.name.toLowerCase().includes('cv') || 
+          file.name.toLowerCase().includes('resume')
         )
         .map((file: any) => ({
           id: file.id,
@@ -42,18 +40,25 @@ class LocalStorageService implements StorageInterface {
 class SupabaseStorageService implements StorageInterface {
   async getCVFiles(): Promise<CVFile[]> {
     try {
-      // Import dynamique pour éviter les erreurs si Supabase n'est pas configuré
+      console.log('📡 CVService: Appel à Supabase pour récupérer les documents...');
       const { FileService } = await import('../lib/supabase');
       
       const result = await FileService.getFilesByType('document');
-      if (!result.success || !result.data) return [];
+      if (!result.success || !result.data) {
+        console.warn('📡 CVService: Aucun document trouvé ou erreur Supabase', result.error);
+        return [];
+      }
 
-      return result.data
-        .filter((file: any) => 
-          file.name.toLowerCase().includes('cv') || 
-          file.name.toLowerCase().includes('resume') ||
-          file.name.toLowerCase().endsWith('.pdf')
-        )
+      const allDocs = result.data;
+      console.log(`📡 CVService: ${allDocs.length} documents trouvés au total.`);
+
+      const cvFiles = allDocs
+        .filter((file: any) => {
+          const name = file.name.toLowerCase();
+          const isCV = name.includes('cv') || name.includes('resume');
+          if (isCV) console.log(`🎯 CV détecté: ${file.name}`);
+          return isCV;
+        })
         .map((file: any) => ({
           id: file.id,
           name: file.name,
@@ -61,8 +66,10 @@ class SupabaseStorageService implements StorageInterface {
           uploadDate: file.created_at,
           size: file.size
         }));
+
+      return cvFiles;
     } catch (error) {
-      console.error('Erreur récupération CV Supabase:', error);
+      console.error('❌ CVService: Erreur critique Supabase:', error);
       return [];
     }
   }
@@ -74,40 +81,43 @@ export class CVService {
 
   private static getStorageService(): StorageInterface {
     if (!this.storageService) {
-      // Détecter si Supabase est configuré
-      const getEnvVar = (key: string, defaultValue: string = '') => {
-        if (typeof process !== 'undefined' && process.env) {
-          return process.env[key] || defaultValue;
-        }
-        return defaultValue;
-      };
-      
-      const supabaseUrl = getEnvVar('REACT_APP_SUPABASE_URL', 'YOUR_SUPABASE_URL');
-      const hasSupabase = supabaseUrl !== 'YOUR_SUPABASE_URL' && supabaseUrl.length > 0;
-      
-      this.storageService = hasSupabase 
-        ? new SupabaseStorageService() 
-        : new LocalStorageService();
+      // On utilise Supabase par défaut car c'est le stockage principal
+      this.storageService = new SupabaseStorageService();
     }
-    
     return this.storageService;
   }
 
   // Récupérer tous les CV importés
   static async getImportedCVs(): Promise<CVFile[]> {
-    return await this.getStorageService().getCVFiles();
+    let files = await this.getStorageService().getCVFiles();
+    
+    // Fallback sur le stockage local si aucun fichier n'est trouvé dans Supabase
+    if (files.length === 0) {
+      console.log('💡 Aucun CV trouvé dans Supabase, vérification du stockage local...');
+      const localService = new LocalStorageService();
+      files = await localService.getCVFiles();
+    }
+    
+    return files;
   }
 
-  // Récupérer le CV principal (le plus récent)
+  // Récupérer le CV principal (le plus récent contenant "cv" ou "resume")
   static async getMainCV(): Promise<CVFile | null> {
     try {
       const cvFiles = await this.getImportedCVs();
-      if (cvFiles.length === 0) return null;
+      
+      if (cvFiles.length === 0) {
+        console.warn('⚠️ Aucun fichier contenant "cv" ou "resume" n\'a été détecté.');
+        return null;
+      }
 
-      // Retourner le plus récent
-      return cvFiles.sort((a, b) => 
+      // Trier par date de création (le plus récent en premier)
+      const sorted = [...cvFiles].sort((a, b) => 
         new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
-      )[0];
+      );
+
+      console.log('✅ CV sélectionné:', sorted[0].name, '(date:', sorted[0].uploadDate, ')');
+      return sorted[0];
     } catch (error) {
       console.error('Erreur récupération CV principal:', error);
       return null;

@@ -27,7 +27,14 @@ export default function SupabaseAuth({ onLogin, isLoading }: SupabaseAuthProps) 
       const result = await onLogin(email, password);
       
       if (!result.success) {
-        setError(result.error || 'Erreur de connexion');
+        let errorMessage = result.error || 'Erreur de connexion';
+        
+        // Aide spécifique pour "Failed to fetch"
+        if (errorMessage.includes("Failed to fetch") || errorMessage.includes("Impossible de contacter Supabase")) {
+          errorMessage = "Impossible de contacter le serveur Supabase. Vérifiez votre connexion internet, assurez-vous que votre projet Supabase n'est pas en pause, et que l'URL est correcte.";
+        }
+        
+        setError(errorMessage);
         setPassword('');
       }
     } catch (err) {

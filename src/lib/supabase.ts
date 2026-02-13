@@ -1,23 +1,29 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Configuration Supabase - Compatible navigateur
+// Configuration Supabase - Compatible navigateur et Vite
 const getEnvVar = (key: string, defaultValue: string = "") => {
-  // Vérifier si on est dans un environnement Node.js ou navigateur
+  // 1. Vérifier import.meta.env (Vite)
+  if (typeof import.meta !== "undefined" && import.meta.env) {
+    const viteKey = key.startsWith("VITE_") ? key : `VITE_${key}`;
+    const reactKey = key.startsWith("REACT_APP_") ? key : `REACT_APP_${key}`;
+    return import.meta.env[viteKey] || import.meta.env[reactKey] || import.meta.env[key] || defaultValue;
+  }
+  
+  // 2. Vérifier process.env (Node.js / Environnements classiques)
   if (typeof process !== "undefined" && process.env) {
     return process.env[key] || defaultValue;
   }
-  // Pour les environnements navigateur, utiliser des valeurs par défaut
+  
   return defaultValue;
 };
 
-const supabaseUrl = getEnvVar(
-  "REACT_APP_SUPABASE_URL",
-  "https://ajubxxipfclkgmlpyzvk.supabase.co",
-);
-const supabaseAnonKey = getEnvVar(
-  "REACT_APP_SUPABASE_ANON_KEY",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFqdWJ4eGlwZmNsa2dtbHB5enZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5NTk0MjYsImV4cCI6MjA3MzUzNTQyNn0.5y5d9yQJmD9H_vZgXQ6p0jPoW4JvnJ3tgerMbEtOWl4",
-);
+// Récupération des variables avec support des préfixes courants
+const supabaseUrl = getEnvVar("SUPABASE_URL", "https://ajubxxipfclkgmlpyzvk.supabase.co");
+const supabaseAnonKey = getEnvVar("SUPABASE_ANON_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFqdWJ4eGlwZmNsa2dtbHB5enZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5NTk0MjYsImV4cCI6MjA3MzUzNTQyNn0.5y5d9yQJmD9H_vZgXQ6p0jPoW4JvnJ3tgerMbEtOWl4");
+
+if (supabaseUrl.includes("ajubxxipfclkgmlpyzvk")) {
+  console.warn("⚠️ Attention : Vous utilisez l'URL Supabase par défaut. Assurez-vous d'avoir configuré votre propre projet Supabase via le bouton 'Connect Supabase' ou les variables d'environnement.");
+}
 
 // Types pour TypeScript
 export interface Database {
@@ -31,9 +37,13 @@ export interface Database {
           size: number;
           file_path: string;
           public_url: string;
+          description?: string;
+          tags?: string[];
+          category?: string;
+          project_id?: string;
+          user_id: string;
           created_at: string;
           updated_at: string;
-          user_id: string;
         };
         Insert: {
           id?: string;
@@ -42,9 +52,13 @@ export interface Database {
           size: number;
           file_path: string;
           public_url: string;
+          description?: string;
+          tags?: string[];
+          category?: string;
+          project_id?: string;
+          user_id: string;
           created_at?: string;
           updated_at?: string;
-          user_id: string;
         };
         Update: {
           id?: string;
@@ -53,9 +67,13 @@ export interface Database {
           size?: number;
           file_path?: string;
           public_url?: string;
+          description?: string;
+          tags?: string[];
+          category?: string;
+          project_id?: string;
+          user_id?: string;
           created_at?: string;
           updated_at?: string;
-          user_id?: string;
         };
       };
       admin_sessions: {
@@ -85,18 +103,26 @@ export interface Database {
   };
 }
 
-// Créer le client Supabase
-console.log("🔧 Configuration Supabase:");
-console.log("  URL:", supabaseUrl);
-console.log(
-  "  Key:",
-  supabaseAnonKey ? "✅ Configurée" : "❌ Manquante",
-);
+// Créer le client Supabase avec validation
+const validateUrl = (url: string) => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+if (!validateUrl(supabaseUrl)) {
+  console.error("❌ URL Supabase invalide:", supabaseUrl);
+}
 
 export const supabase = createClient<Database>(
-  supabaseUrl,
-  supabaseAnonKey,
+  supabaseUrl || "https://placeholder.supabase.co",
+  supabaseAnonKey || "placeholder",
 );
+
+console.log("🔧 Configuration Supabase initialisée");
 
 // Service d'authentification admin
 export class AdminAuthService {
@@ -143,13 +169,20 @@ export class AdminAuthService {
 
       return { success: true, token: sessionToken };
     } catch (error) {
-      console.error("Erreur connexion admin:", error);
+      console.error("Erreur connexion admin détaillée:", error);
+      
+      let message = "Erreur de connexion au serveur";
+      if (error instanceof Error) {
+        if (error.message.includes("Failed to fetch")) {
+          message = "Impossible de contacter Supabase. Vérifiez votre connexion internet ou la configuration du projet.";
+        } else {
+          message = error.message;
+        }
+      }
+      
       return {
         success: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Erreur de connexion",
+        error: message,
       };
     }
   }

@@ -708,12 +708,21 @@ export default function ProjectsSection({
     return true;
   });
 
-  const handleViewDetail = (project: Project) => {
+  const handleViewDetail = async (project: Project) => {
     if (project.category === "certification") {
       setSelectedCertification(project);
       setIsCertificationModalOpen(true);
     } else {
-      onViewProject(project);
+      // Pour les projets, vérifier si un rapport PDF est disponible
+      const hasReport = await SimpleFileService.hasReportForProject(project.id);
+      
+      if (hasReport) {
+        console.log('📄 Rapport trouvé pour le projet, ouverture directe...');
+        SimpleFileService.openProjectReport(project.id);
+      } else {
+        // Sinon ouvrir le détail normal
+        onViewProject(project);
+      }
     }
   };
 
@@ -1042,12 +1051,12 @@ export default function ProjectsSection({
                         onClick={() =>
                           handleViewDetail(project)
                         }
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 font-medium"
                       >
                         {project.category === "certification"
                           ? "Voir certificat"
-                          : "Voir détail"}
-                        <ArrowRight className="ml-1 h-3 w-3" />
+                          : "Consulter projet"}
+                        <ExternalLink className="ml-2 h-3 w-3" />
                       </Button>
                     </div>
                   </CardContent>

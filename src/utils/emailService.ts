@@ -16,9 +16,9 @@ interface EmailServiceResponse {
 // 3. Créer un template avec les variables : from_name, from_email, message, to_name
 // 4. Remplacer les IDs ci-dessous par vos vrais IDs
 const EMAILJS_CONFIG = {
-  serviceId: 'service_portfolio', // Remplacer par votre Service ID
-  templateId: 'template_contact', // Remplacer par votre Template ID  
-  publicKey: 'YOUR_PUBLIC_KEY'    // Remplacer par votre Public Key
+  serviceId: 'service_pcxpsjn', // Remplacer par votre Service ID
+  templateId: 'template_zenli2e', // Remplacer par votre Template ID  
+  publicKey: 'eduWk3H7qIiot8TVr'    // Remplacer par votre Public Key
 };
 
 // Alternative Web3Forms (gratuit, sans inscription)
@@ -27,7 +27,7 @@ const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY'; // Obtenir sur https://web3fo
 export const sendEmail = async (formData: EmailData): Promise<EmailServiceResponse> => {
   try {
     // Méthode 1: EmailJS (service professionnel recommandé)
-    if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
+    if (EMAILJS_CONFIG.publicKey !== 'eduWk3H7qIiot8TVr') {
       try {
         const emailjs = await import('@emailjs/browser');
         
@@ -58,7 +58,7 @@ export const sendEmail = async (formData: EmailData): Promise<EmailServiceRespon
     }
 
     // Méthode 2: Web3Forms (alternative gratuite)
-    if (WEB3FORMS_KEY !== 'YOUR_WEB3FORMS_ACCESS_KEY') {
+    if (WEB3FORMS_KEY !== 'fb5b69ee-1c64-46c0-bfdc-f117a608eb73') {
       try {
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
