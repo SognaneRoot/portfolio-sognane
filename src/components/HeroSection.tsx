@@ -91,7 +91,7 @@ export default function HeroSection() {
           </div>
 
           <div className="p-6 bg-white/60 backdrop-blur-sm rounded-xl shadow-lg">
-            <h3 className="text-2xl mb-2 text-blue-600">10+</h3>
+            <h3 className="text-2xl mb-2 text-blue-600">5+</h3>
             <p className="text-gray-600">Attestations</p>
           </div>
         </div>
