@@ -72,15 +72,15 @@ export default function CertificateModal({
       cert10:
         "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", // IoT
       cert11:
-        "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&q=80", // Microsoft ADDS
+        "src\assets\ADDS.jpg", // Microsoft ADDS
       cert12:
-        "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&q=80", // Microsoft FSMO
+        "src\assets\FSMO.jpg", // Microsoft FSMO
       cert13:
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80", // Intro Cybersécurité
       cert14:
-        "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&q=80", // Microsoft GPO
+        "src\assets\GPO.jpg", // Microsoft GPO
       cert15:
-        "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&q=80", // Microsoft DNS
+        "src\assets\DNS.jpg", // Microsoft DNS
       cert16:
         "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&q=80", // Windows OS Cisco
     };
@@ -96,22 +96,22 @@ export default function CertificateModal({
     const loadCertificateImage = async () => {
       setIsLoadingImage(true);
       console.log('🖼️ Chargement image pour certificat:', certificate.id, '-', certificate.title);
-      
+
       try {
         const defaultImageUrl = getDefaultCertificateImage(
           certificate.id,
         );
         console.log('🔗 URL par défaut:', defaultImageUrl);
-        
+
         const imageUrl =
           await CertificateService.getCertificateImageByTimelineId(
             certificate.id,
             defaultImageUrl,
           );
-        
+
         console.log('🖼️ URL finale utilisée:', imageUrl);
         console.log('📍 Source:', imageUrl === defaultImageUrl ? 'Unsplash (défaut)' : 'Supabase (personnalisée)');
-        
+
         setCertificateImageUrl(imageUrl);
       } catch (error) {
         console.error(

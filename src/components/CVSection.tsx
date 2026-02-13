@@ -71,7 +71,7 @@ const timelineData: TimelineItem[] = [
     title: "L3 Réseau et Système Informatique",
     company: "ISI Keur Massar",
     location: "Keur Massar, Sénégal",
-    period: "En cours",
+    period: "2025",
     description:
       "Formation spécialisée en réseaux informatiques et administration système avec focus sur les infrastructures IT.",
     skills: [
@@ -79,6 +79,8 @@ const timelineData: TimelineItem[] = [
       "Système",
       "Infrastructure IT",
       "Sécurité",
+      "Virtualisation",
+      "Cloud Computing",
     ],
     hasDetail: false,
   },
