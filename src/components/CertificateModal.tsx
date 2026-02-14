@@ -47,30 +47,18 @@ export default function CertificateModal({
   // Images par défaut pour les certificats (génériques)
   const getDefaultCertificateImage = (certId: string): string => {
     const defaultImages: Record<string, string> = {
-      cert1:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80",
-      cert2:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80",
 
-      cert2b: "/assets/CCNA-ENSA.PNG",
+      cert1: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80",
+      cert2: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80",
+      cert2b: "/assets/CCNAENSA.PNG",
       cert3: "/assets/Python2.PNG",
       cert4: "/assets/Python2.PNG",
-
-      cert5:
-        "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600&q=80",
-
-      cert6: "/assets/NDG-Linux.PNG",
-
-      cert7:
-        "https://images.unsplash.com/photo-1518373714866-3f1478910cc0?w=600&q=80",
-
-      cert8:
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
-
+      cert5: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600&q=80",
+      cert6: "/assets/NDGLinux.PNG",
+      cert7: "https://images.unsplash.com/photo-1518373714866-3f1478910cc0?w=600&q=80",
+      cert8: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
       cert9: "/assets/ITE.PNG",
-      cert10:
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-
+      cert10: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
       cert11: "/assets/ADDS.jpg",
       cert12: "/assets/FSMO.jpg",
       cert13: "/assets/Cybersec.PNG",
