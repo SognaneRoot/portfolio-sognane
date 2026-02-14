@@ -2,8 +2,11 @@ import { ArrowDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import TypewriterText from "./TypewriterText";
-import profileImage from "figma:assets/28e6dd97f48a8e4ccbb521e9e3642fe366e7020c.png";
-
+<ImageWithFallback
+  src="/assets/profile.png"
+  alt="Photo de profil"
+  className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
+/>
 export default function HeroSection() {
   const scrollToCV = () => {
     const element = document.querySelector("#cv");
