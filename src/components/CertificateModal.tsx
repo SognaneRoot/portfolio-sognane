@@ -76,8 +76,7 @@ export default function CertificateModal({
       cert13: "/assets/Cybersec.PNG",
       cert14: "/assets/GPO.jpg",
       cert15: "/assets/DNS.jpg",
-      cert16:
-        "/assets/Operating_Systems_Basics_certificate_sognanendiaga0-gmail-com_73b9fef2-7498-4d2c-9454-dc6b6e33085b-1.jpg",
+      cert16: "/assets/Operating_Systems_Basics_certificate_sognanendiaga0-gmail-com_73b9fef2-7498-4d2c-9454-dc6b6e33085b-1.jpg",
     };
 
     return (
@@ -85,7 +84,7 @@ export default function CertificateModal({
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"
     );
   };
-  
+
   useEffect(() => {
     if (!certificate) return;
 
