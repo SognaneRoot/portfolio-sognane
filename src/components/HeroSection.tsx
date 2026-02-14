@@ -19,7 +19,7 @@ export default function HeroSection() {
         <div className="mb-8">
           <div className="relative w-32 h-32 mx-auto mb-6">
             <img
-              src="public/assets/profile.png"
+              src="/assets/profile.png"
               alt="Photo de profil"
               className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
             />
