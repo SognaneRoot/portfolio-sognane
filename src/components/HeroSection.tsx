@@ -1,12 +1,7 @@
 import { ArrowDown } from "lucide-react";
 import { Button } from "./ui/button";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
 import TypewriterText from "./TypewriterText";
-<ImageWithFallback
-  src="/assets/profile.png"
-  alt="Photo de profil"
-  className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
-/>
+
 export default function HeroSection() {
   const scrollToCV = () => {
     const element = document.querySelector("#cv");
@@ -23,8 +18,8 @@ export default function HeroSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="mb-8">
           <div className="relative w-32 h-32 mx-auto mb-6">
-            <ImageWithFallback
-              src={profileImage}
+            <img
+              src="/assets/profile.png"
               alt="Photo de profil"
               className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
             />
@@ -41,11 +36,7 @@ export default function HeroSection() {
           <div className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto min-h-[2.5rem] flex items-center justify-center">
             <TypewriterText
               baseText="Administrateur  "
-              words={[
-                "Système",
-                "Réseau",
-                "Cloud",
-              ]}
+              words={["Système", "Réseau", "Cloud"]}
               typingSpeed={80}
               deletingSpeed={40}
               pauseDuration={2500}
@@ -87,9 +78,7 @@ export default function HeroSection() {
           </div>
 
           <div className="p-6 bg-white/60 backdrop-blur-sm rounded-xl shadow-lg">
-            <h3 className="text-2xl mb-2 text-purple-600">
-              16+
-            </h3>
+            <h3 className="text-2xl mb-2 text-purple-600">16+</h3>
             <p className="text-gray-600">Projets techniques</p>
           </div>
 
