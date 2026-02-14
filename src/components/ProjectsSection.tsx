@@ -418,7 +418,7 @@ const projectsData: Project[] = [
   year: "2023-2024",
   category: "certification",
   image:
-    "src\assets\CCNA-ENSA.PNG",
+    "/assets/CCNA-ENSA.PNG",
   technologies: ["Cisco", "Réseaux", "Routing", "Switching"],
   links: {
     certificate: "#",
@@ -433,7 +433,7 @@ const projectsData: Project[] = [
     year: "2023",
     category: "certification",
     image:
-      "src\assets\NDG-Linux.PNG",
+      "/assets/NDG-Linux.PNG",
     technologies: [
       "Linux",
       "Administration Système",
