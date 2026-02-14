@@ -45,51 +45,47 @@ export default function CertificateModal({
   const [isLoadingImage, setIsLoadingImage] = useState(false);
 
   // Images par défaut pour les certificats (génériques)
-  const getDefaultCertificateImage = (
-    certId: string,
-  ): string => {
+  const getDefaultCertificateImage = (certId: string): string => {
     const defaultImages: Record<string, string> = {
       cert1:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80", // Cisco CCNA 1
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80",
       cert2:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80", // Cisco CCNA 2
-      cert2b:
-        "src\assets\CCNA-ENSA.PNG", // Cisco CCNA 3
-      cert3:
-        "src\assets\Python2.PNG", // Python 1
-      cert4:
-        "src\assets\Python2.PNG", // Python 2
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80",
+
+      cert2b: "/assets/CCNA-ENSA.PNG",
+      cert3: "/assets/Python2.PNG",
+      cert4: "/assets/Python2.PNG",
+
       cert5:
-        "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600&q=80", // AWS Cloud
-      cert6:
-        "src\assets\NDG-Linux.PNG", // Linux
+        "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=600&q=80",
+
+      cert6: "/assets/NDG-Linux.PNG",
+
       cert7:
-        "https://images.unsplash.com/photo-1518373714866-3f1478910cc0?w=600&q=80", // Linux Server
+        "https://images.unsplash.com/photo-1518373714866-3f1478910cc0?w=600&q=80",
+
       cert8:
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80", // CyberOps
-      cert9:
-        "src\assets\ITE.PNG", // IT Essentials
+        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
+
+      cert9: "/assets/ITE.PNG",
       cert10:
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", // IoT
-      cert11:
-        "src\assets\ADDS.jpg", // Microsoft ADDS
-      cert12:
-        "src\assets\FSMO.jpg", // Microsoft FSMO
-      cert13:
-        "src\assets\Cybersec.PNG", // Intro Cybersécurité
-      cert14:
-        "src\assets\GPO.jpg", // Microsoft GPO
-      cert15:
-        "src\assets\DNS.jpg", // Microsoft DNS
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+
+      cert11: "/assets/ADDS.jpg",
+      cert12: "/assets/FSMO.jpg",
+      cert13: "/assets/Cybersec.PNG",
+      cert14: "/assets/GPO.jpg",
+      cert15: "/assets/DNS.jpg",
       cert16:
-        "src\assets\Operating_Systems_Basics_certificate_sognanendiaga0-gmail-com_73b9fef2-7498-4d2c-9454-dc6b6e33085b-1.jpg", // Windows OS Cisco
+        "/assets/Operating_Systems_Basics_certificate_sognanendiaga0-gmail-com_73b9fef2-7498-4d2c-9454-dc6b6e33085b-1.jpg",
     };
+
     return (
       defaultImages[certId] ||
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"
     );
   };
-
+  
   useEffect(() => {
     if (!certificate) return;
 
