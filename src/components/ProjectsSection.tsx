@@ -363,6 +363,34 @@ const projectsData: Project[] = [
       demo: "https://monportfolio.ct.ws",
     },
   },
+  {
+    id: "proj17",
+    title: "Implémentation GLPI",
+    description:
+      "Installation et configuration d'une solution open-source de gestion des services informatiques (ITSM — IT Service Management)..",
+    year: "2026",
+    category: "project",
+    image:
+      "public\assets\GLPI.PNG",
+    technologies: ["WordPress", "PHP", "MySQL", "HTML/CSS"],
+    links: {
+      demo: "https://monportfolio.ct.ws",
+    },
+  },
+  {
+    id: "proj18",
+    title: "Guide Utilisation GLPI",
+    description:
+      "Guide d'utilisa du solution open-source de gestion des services informatiques (ITSM — IT Service Management)..",
+    year: "2026",
+    category: "project",
+    image:
+      "public\assets\GLPI.PNG",
+    technologies: ["WordPress", "PHP", "MySQL", "HTML/CSS"],
+    links: {
+      demo: "https://monportfolio.ct.ws",
+    },
+  },
 
   // Certifications
   {
