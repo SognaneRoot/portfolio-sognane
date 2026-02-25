@@ -371,8 +371,8 @@ const projectsData: Project[] = [
     year: "2026",
     category: "project",
     image:
-      "public\assets\GLPI.PNG",
-    technologies: ["WordPress", "PHP", "MySQL", "HTML/CSS"],
+      "public/assets/GLPI.PNG",
+    technologies: ["Apache", "PHP", "MariaDB"],
     links: {
       demo: "https://monportfolio.ct.ws",
     },
@@ -385,8 +385,36 @@ const projectsData: Project[] = [
     year: "2026",
     category: "project",
     image:
-      "public\assets\GLPI.PNG",
-    technologies: ["WordPress", "PHP", "MySQL", "HTML/CSS"],
+      "public/assets/GLPI.PNG",
+    technologies: ["Apache", "PHP", "MariaDB"],
+    links: {
+      demo: "https://monportfolio.ct.ws",
+    },
+  },
+  {
+    id: "proj19",
+    title: "Ntop-ng",
+    description:
+      " ntopng est un logiciel de surveillance et d'analyse du trafic réseau.",
+    year: "2026",
+    category: "project",
+    image:
+      "public/assets/ntopng.PNG",
+    technologies: ["Supervision", "Apache", "PHP", "MariaDB"],
+    links: {
+      demo: "https://monportfolio.ct.ws",
+    },
+  },
+  {
+    id: "proj20",
+    title: "Roundcube avec Openldap",
+    description:
+      "Roundcube est un client de messagerie web puissant et open source qui vous permet d'accéder à vos e-mails professionnels et de les gérer depuis n'importe quel appareil doté d'un navigateur .",
+    year: "2026",
+    category: "project",
+    image:
+      "public/assets/ntopng.PNG",
+    technologies: ["Supervision", "Webmail", "authentification", "messagerie"],
     links: {
       demo: "https://monportfolio.ct.ws",
     },
