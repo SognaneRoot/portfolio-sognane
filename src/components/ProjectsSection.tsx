@@ -206,7 +206,7 @@ const projectsData: Project[] = [
     year: "2025",
     category: "project",
     image:
-      "https://images.unsplash.com/photo-1597740985671-2a8a3b80502e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ258ZW58MXx8fHwxNzU3NzU1NjgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBzTUMH4gWMyjb_De2wQXAM9oMAfYLkIkrtA&s",
     technologies: [
       "Proxmox VE",
       "Virtualisation",
@@ -224,7 +224,7 @@ const projectsData: Project[] = [
     year: "2025",
     category: "project",
     image:
-      "https://images.unsplash.com/photo-1597740985671-2a8a3b80502e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ258ZW58MXx8fHwxNzU3NzU1NjgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "https://www.google.com/imgres?q=PROXMOX%20BACKUP%20INFRASTRUCTURE&imgurl=https%3A%2F%2Fstd.rocks%2Fimages%2Fvirtualization%2Fproxmox%2Fpbs%2F003-proxmox-backup-architecture-diagram.webp&imgrefurl=https%3A%2F%2Fstd.rocks%2Fvirtualization_proxmox_backup_server.html&docid=ClmHuXzUzYk9vM&tbnid=xE8OnM-MbLdo6M&vet=12ahUKEwib8JH6gZSTAxUt8QIHHTqSLJwQnPAOegQIGxAB..i&w=1855&h=1076&hcb=2&ved=2ahUKEwib8JH6gZSTAxUt8QIHHTqSLJwQnPAOegQIGxAB",
     technologies: [
       "Proxmox VE",
       "Proxmox Backup",
