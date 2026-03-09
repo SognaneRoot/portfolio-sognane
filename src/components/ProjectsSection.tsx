@@ -200,9 +200,27 @@ const projectsData: Project[] = [
   },
   {
     id: "proj8",
-    title: "Infrastructure Proxmox & Backup",
+    title: "Découverte de Proxmox",
     description:
-      "Mise en place d'une infrastructure de virtualisation Proxmox avec système de sauvegarde automatisé Proxmox Backup.",
+      "Mise en place d'une infrastructure de virtualisation Proxmox sur VMware.",
+    year: "2025",
+    category: "project",
+    image:
+      "https://images.unsplash.com/photo-1597740985671-2a8a3b80502e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ258ZW58MXx8fHwxNzU3NzU1NjgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    technologies: [
+      "Proxmox VE",
+      "Virtualisation",
+      "Hyperviseur",
+    ],
+    links: {
+      demo: "#",
+    },
+  },
+  {
+    id: "proj22",
+    title: "Configuration Proxmox avancée",
+    description:
+      "Mise en place d'une infrastructure de virtualisation Proxmox avec Ceph, HA, système de sauvegarde automatisé Proxmox Backup.",
     year: "2025",
     category: "project",
     image:
@@ -210,8 +228,8 @@ const projectsData: Project[] = [
     technologies: [
       "Proxmox VE",
       "Proxmox Backup",
-      "Virtualisation",
-      "Hyperviseur",
+      "CEPH",
+      "HA",
     ],
     links: {
       demo: "#",
@@ -407,6 +425,20 @@ const projectsData: Project[] = [
   },
   {
     id: "proj20",
+    title: "Roundcube avec Openldap",
+    description:
+      "Roundcube est un client de messagerie web puissant et open source qui vous permet d'accéder à vos e-mails professionnels et de les gérer depuis n'importe quel appareil doté d'un navigateur .",
+    year: "2026",
+    category: "project",
+    image:
+      "public/assets/ntopng.PNG",
+    technologies: ["Supervision", "Webmail", "authentification", "messagerie"],
+    links: {
+      demo: "https://monportfolio.ct.ws",
+    },
+  },
+  {
+    id: "proj21",
     title: "Roundcube avec Openldap",
     description:
       "Roundcube est un client de messagerie web puissant et open source qui vous permet d'accéder à vos e-mails professionnels et de les gérer depuis n'importe quel appareil doté d'un navigateur .",
